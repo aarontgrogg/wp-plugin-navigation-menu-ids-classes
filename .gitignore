@@ -1,1 +1,9 @@
-## nada, take `em all!
+# typical ones...
+.DS_Store
+.DS_Store?
+.Trashes
+Thumbs.db
+
+# required by WordPress Repository, but not for GitHub
+_LICENSE.txt
+readme.txt
