@@ -3,7 +3,7 @@ Contributors: aarontgrogg
 Tags: navigation, menu, id, class, semantic, clean
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 2.1
+Stable tag: 2.3
 
 To reduce the extraneous WordPress classes and add unique IDs to navigation menus.
 
@@ -11,8 +11,7 @@ To reduce the extraneous WordPress classes and add unique IDs to navigation menu
 == Description ==
 
 This plug-in limits the classes WordPress added to navigation menus to only those desired by the Theme owner,
-adds a unique ID to each `&lt;li&gt;` (except right now I cannot figure out how to add IDs to standard menus),
-and removes any empty `class` attributes.
+adds a unique ID to each `li` and removes any empty `class` attributes.
 
 More about this plug-in can be found at:
 http://aarontgrogg.com/2011/09/28/wordpress-plug-in-navigation-menu-ids-classes/
@@ -49,11 +48,15 @@ aarontgrogg@gmail.com
 
 == Screenshots ==
 
-1. [Before](http://aarontgrogg.com/wp-content/uploads/2011/09/screenshot-1.png)
-2. [After](http://aarontgrogg.com/wp-content/uploads/2011/09/screenshot-2.png)
+1. HTML before plug-in
+2. HTML after plug-in
 
 
 == Changelog ==
+
+= 2.3 =
+2013-04-07:
+* Fixed naming issue preventing plug-in from working and fixed screenshots
 
 = 2.1 =
 2013-01-11:
