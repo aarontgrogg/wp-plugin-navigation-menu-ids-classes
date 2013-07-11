@@ -2,8 +2,8 @@
 Contributors: aarontgrogg
 Tags: navigation, menu, id, class, semantic, clean
 Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 2.3
+Tested up to: 3.5.2
+Stable tag: 2.4
 
 To reduce the extraneous WordPress classes and add unique IDs to navigation menus.
 
@@ -53,6 +53,10 @@ aarontgrogg@gmail.com
 
 
 == Changelog ==
+
+= 2.4 =
+2013-07-11:
+* Added ability to retain custom class added via the Menus Admin page; thanks to Bryce for the idea, and sorry it took me so long to get around to!
 
 = 2.3 =
 2013-04-07:
