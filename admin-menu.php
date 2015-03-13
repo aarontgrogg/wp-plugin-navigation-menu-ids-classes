@@ -10,17 +10,6 @@
 	License: GPLv2 or later
 */
 
-/*
-	Dev:
-		http://wordpress.dev/page-d/
-		plug-in deactivated:
-			"menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-739 current_page_item menu-item-829"
-			all are in array below
-		plug-in activated:
-			only gets page-name class
-
-*/
-
 
 /*	Global variables & functions */
 
