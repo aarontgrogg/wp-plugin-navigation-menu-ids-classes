@@ -4,7 +4,7 @@
 	Plugin Name: Navigation Menu IDs & Classes
 	Plugin URI: http://aarontgrogg.com/2011/09/28/wordpress-plug-in-navigation-menu-ids-classes/
 	Description: Limits WP classes to those chosen by the Theme owner, and adds page name slug as LI's ID.
-	Version: 2.3
+	Version: 2.5
 	Author: Aaron T. Grogg
 	Author URI: http://aarontgrogg.com/
 	License: GPLv2 or later
@@ -67,9 +67,15 @@
 					<div id="instructions">
 						<p>This plug-in performs several changes to the HTML of navigational menu <code>&lt;li&gt;</code> items:
 							<ol>
-								<li>adds a custom ID that reflects the destination page name,</li>
-								<li>limits the classes WordPress adds to only those selected by the Theme owner, and</li>
-								<li>removes any empty <code>class</code> attributes.</li>
+								<li>allows you to either:
+									<ol>
+										<li>keep your Theme's native WordPress <code>id</code> structure (this may result in somewhat useless <code>id</code>s, such as <code>id="menu-item-828"</code>),</li>
+										<li>assign an <code>id</code> based on the link's destination (which could result in duplicate <code>id</code>s, if you have multiple navigation menus on a page),</li>
+										<li>or remove IDs completely from your navigation menu <code>&lt;li&gt;</code> items.</li>
+									</ol>
+								</li>
+								<li>limits the classes that WordPress adds to only those you select from the list below, and</li>
+								<li>removes any empty <code>id</code> or <code>class</code> attributes.</li>
 							</ol>
 						</p>
 						<p>Check any <code>class</code> below that you want included in your navigational menu <code>&lt;li&gt;</code> items.</p>
@@ -133,7 +139,6 @@
 				add_settings_section('main_section', '', 'NMIC_section_cb', 'NMIC-admin');
 				// Loop through WP classes and build a listener for each
 				foreach ($NMIC_Classes as $class) {
-					//add_settings_field($class, $class, 'create_class_option', 'NMIC-admin', 'main_section', $class);
 					add_settings_field($class, $class, 'create_class_option', 'NMIC-admin', 'main_section', array( 'label_for' => 'nmic_'.$class ) );
 				}
 			}
@@ -176,14 +181,20 @@
 
 	//	Limit the nav classes to only those selected by the Theme owner
 		if ( ! function_exists( 'NMIC_limit_classes' ) ):
-			function NMIC_limit_classes( $oldclasses, $page ) {
-				// $oldclasses = array of classes WP wants to append; $page = WP $page object
-				// Grab the options object
-				$options = get_option('plugin_options');
+			function NMIC_limit_classes( $oldclasses, $item ) {
+				// $oldclasses = array of classes WP wants to append; $item = WP $item object
+				// If there are any custom classes, push them into a new array
+				$custom = get_post_meta( $item->ID, '_menu_item_classes', true );
+				// Avoid pushing any empty values into $newclasses array
+				if ($custom && $custom[0] && $custom[0] !== '') {
+					$newclasses = $custom;
+				}
 				// Get a slugified-version of the target page/post title
-				$current = NMIC_slugify_string(($page->post_type === 'page') ? $page->post_title : $page->title);
+				$current = NMIC_slugify_string(($item->post_type === 'page') ? $item->post_title : $item->title);
 				// Push that title into the $newclasses array
 				$newclasses[] = $current;
+				// Grab the options object
+				$options = get_option('plugin_options');
 				// Loop through all the WP classes and push any that match the owner's list into the $newclasses array
 				foreach($oldclasses as $class) {
 					$option = 'nmic_'.$class;
@@ -204,7 +215,8 @@
 		if ( ! function_exists( 'NMIC_add_id_attribute' ) ):
 			function NMIC_add_id_attribute( $id, $item ) {
 				// Add an ID to the nav item
-				return 'nav-'.NMIC_slugify_string($item->title);
+				//return 'nav-'.NMIC_slugify_string($item->title);
+				return '';
 			}
 		endif; // NMIC_add_id_attribute
 		add_filter( 'nav_menu_item_id', 'NMIC_add_id_attribute', 10, 2 );

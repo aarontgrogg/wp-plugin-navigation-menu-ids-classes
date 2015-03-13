@@ -3,6 +3,10 @@
 .DS_Store?
 .Trashes
 Thumbs.db
+.svn/
+branches/
+tags/
+trunk/
 
 # required by WordPress Repository, but not for GitHub
 _LICENSE.txt
